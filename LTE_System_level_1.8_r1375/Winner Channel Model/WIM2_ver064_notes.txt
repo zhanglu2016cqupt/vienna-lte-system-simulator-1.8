@@ -1,0 +1,287 @@
+WINNER Phase II channel model reference implementation
+
+_______________________________________________________________
+version 0.64 (22.9.2008 Lassi)
+
+- New document WIM2 Matlab documentation V0.4.pdf created!
+- Updated files: almost every file updated slightly
+- Ansi_c support removed
+
+
+_________________________________________________________________
+version 0.63 (12.2.2008 Pekka)
+
+pathloss.m
+-Error in D1 NLOS path loss formula corrected on row 433. The same error was also in 
+ WINNER deliverable D1.1.2 ver 1.1, but is corrected to version  1.2.
+
+__________________________________________________________________
+version 0.62 with a new 3D antenna support (18.12.2007 Lassi)
+
+Please see "3D-Antenna-Array-Model.doc" for detailed information of the new 3d-feature.
+The feature is implemented by TU Ilmenau, please contact Martin Käske and Milan Narandzic for more information
+
+Changed files: LScorrelation.m, generate_bulk_par.m, layout2link.m, layoutparset.m, wim.m and wim_core.m 
+
+Some general notes:
+-antparset.m does not work any more, use arrayparset.m instead to get some example arrays
+-with AntennaArray.m any kind of antenna geometry and field patterns can be generated  
+-also, you can load Arrays.mat which includes a simple array with isotropic antennas
+-use layoutparset.m and layout2link.m to get linkpar
+e.g. linkpar = layout2link(layoutparset(1,1,1,Arrays));
+ 
+
+___________________________________________________________________
+version 0.62 (12.11.2007 Pekka)
+
+linkparset.m, layoutparset.m, layout2link.m
+-parameter WallLoss removed
+-parameter NumPenetratedFloors added
+
+___________________________________________________________________
+version 0.61 (8.11.2007 Pekka, Mikko)
+
+generate_bulk_par.m
+-rows 393-421 modified 
+
+___________________________________________________________________
+version 0.60 (18.10.2007 Mikko)
+LScorrelation.m
+-row 175 modified
+
+generate_bulk_par.m
+-row 278 modified 
+
+___________________________________________________________________
+version 0.59 (10.10.2007 Pekka, Lassi)
+General note: Most of the modification / updates are due to the D1.1.2. 
+
+Modified m-files:
+
+wim.m
+-corrected a bug related to use of initial values instead of bulk parameter generation on line 226 and 230
+-corrected a bug on line 536 related to determination of variable SubClustInd
+
+wim_core.m
+-rows 412-413 modified
+
+wimparset.m
+-PathLossOption modified
+
+ScenParTables.m
+-changed according to the D1.1.2
+
+linkparset.m
+- wall loss removed
+- numPenetratedFloors added
+
+struct_generation.m
+-row 27 updated since k-factor is now a LS-parameter.
+-rows 62-63, 36-37 and 77-78 modified since XPRv and XPRh unified
+
+ScenarioMapping.m
+-C4 added
+
+LScorrelation.m
+-K-factor definition changed according to the D1.1.2
+--> modified rows: 51, 96, 101, 103, 107, 115, 124, 138-151, 165-166, 176, 185
+
+generate_bulk_par.m
+-B2 delay generation changed equal to B1 NLOS (rows 247-267)
+-added if condition to STEP 3. If PathLossModelUsed='no', path loss is not generated at all.
+-K-factor definition changed according to the D1.1.2 (rows 225 and 277)
+-due to adding of scenario C4, rows 67, 132, 157, 166 and 239 updated
+-rows 536-563 and 767-794 modified since XPRv and XPRh unified
+
+pathloss.m
+-added checking of PL range lower limit on rows 47-48 and 55-56
+-path loss functions updated based on the D1.1.2
+
+fixedAoas.m, fixedAods.m, fixedPdp.m
+-updated CDL parameters based on WINNER final channel models D1.1.2
+
+LOSprobability.m
+-C2 added
+
+
+___________________________________________________________________
+version 0.58 (17.08.2007 Pekka)
+Modified m-files:
+
+generate_bulk_par.m
+-corrected a bug related to combination of LOS and FixedPDP on line 506
+
+wim.m
+-corrected an error related to use of initial values in the wim call,
+ lines 221-237 added
+
+LScorrelation.m
+-lines 94-97 fixed
+94 gridn = randn(max(MsXY(2,tmpMs))-min(MsXY(2,tmpMs))+2*xtra+1,...
+95 max(MsXY(1,tmpMs))-min(MsXY(1,tmpMs))+2*xtra+1 ,4);
+96 % Index to MS locations on the grid  
+97 gind = sub2ind(size(gridn),MsXY(2,tmpMs)-min(MsXY(2,tmpMs))+xtra+1,MsXY(1,tmpMs)-min(MsXY(1,tmpMs))+xtra+1);
+
+indexing is now performed by substracting min(MsXY(1,tmpMs)) from the actual MsXY. Please note the „+1“. Consider 
+the case were max_x==2 and min_x==1 then max_x-min_x equals 1 but we need 2 samples from randn (one for max_x one for min_x, 
+leave out 2*xtra). The same ist true for sub2ind, if we want to find the index for the mobile at min_x, we need the „xtra+1“’th 
+element of the grid not the xtra’th (that would happen in the old code).
+
+
+___________________________________________________________________
+version 0.57 (06.07.2007 Lassi)
+Modified m-files:
+
+pathloss.m
+-added B1_NLOS_PL function 422->
+-added a function function B1_NLOS_PL to rows 422-440 and lines 197-199 to confirm reciprocity in B1NLOS pathloss
+197 loss_a = B1_NLOS_PL(Dist1,Dist2,loss_LoS,NLoSConnectionLinks,PL_bp,iterpar,CenterFrequency,wimpar,StreetWidth,H_bs,H_ms);
+198 loss_b = B1_NLOS_PL(Dist2,Dist1,loss_LoS,NLoSConnectionLinks,PL_bp,iterpar,CenterFrequency,wimpar,StreetWidth,H_bs,H_ms);
+199 loss(NLoSConnectionLinks) = min(loss_a(NLoSConnectionLinks),loss_b(NLoSConnectionLinks));
+
+
+___________________________________________________________________
+Version 0.56 (21.06.2007 Pekka, Lassi)
+Modified m-files:
+
+LScorrelation.m
+-minor bug corrected on line 112
+
+pathloss.m
+-small tuning: set error if MsBsDistance exceeds the maximum allowed cell radius
+
+___________________________________________________________________
+Version 0.55 (13.06.2007 Pekka)
+Modified m-files:
+  
+LScorrelation.m
+-Auto-correlation generation changed to 2D- filtering of grid of samples (based on Per Zetterberg's original proposal). Cross correlation generation cleaned to simple linear transformation (multiplication by R^0.5). Distribution transformations simplified, all distributions are log-Normal in WINNER II.
+
+
+NTlayout.m
+- clf command added to row 46 to prevent plotting on top of the old figure
+
+
+___________________________________________________________________
+Version 0.54 (04.06.2007, Mikko, Lassi, Pekka)
+Modified m-files:
+  
+layoutparset.m
+- Added new (linkpar) parameters ScenarioVector, PropagConditionVector, NumFloors
+- Changed determination of MsHeight, BsHeight, MsVelocity and MsDirection parameters 
+
+layout2link.m
+- Added new (linkpar) parameters ScenarioVector, PropagConditionVector, NumFloors 
+- Changed determination of MsHeight, BsHeight, MsVelocity and MsDirection parameters
+
+generate_bulk_par.m
+- Powers for LoS cases apply Ricean K-values. This is correct for the determination of the azimuth angles. However, for the powers saved in bulk_parameteres –struct this is not correct. 
+- Ricean K factors are taken into account later in the generate_H.m function. Changes accordingly are done in lines 360 and 516-518. K-factors can take negative values and as long as the use of correction factor D is valid, this is not good (delays are negative as well). Hence, the Ricean K-factor is limited to 0dB. Changes accordingly in lines 226-229. Probably not needed after the K-factor is drawn from the distribution. 
+- Bad urban: 
+ • All of the users exhibit bad urban effect (long delay). MsBsDist -distances are doubled. Changes accordingly in lines 202-217. 
+ • Every occurrence of SF… changed to FS… (far scatter). Not sure where SF came from.
+ • Last two delays for every user are put to MsBsScatDist/3e8 in the output delays. Changes accordingly in lines 293-295.
+- Added rows 230-232 to restrict the K-factor below 20dB
+- Removed the validity check of MsBsDistance (rows 187-198)  --> moved to pathloss.m (rows 45-47)
+
+ScenParTables.m
+- Takes StreetWidth as input.
+- D1 LoS AS_D_mu and AS_A_mu changed according to D111.
+- A2/B4 values updated according to the combined scenario in the draft of D112. Both scenarios are still left in the implementation even though the values for the parameters are the same. This is because the AoA values given in the draft of D112 denotes outdoor azimuth spread. For B4 this is departure not arrival. For A2, departure is departure and arrival is arrival. Combination of the scenarios in the implementation point of view would lead to the use of if…end -structure in generate_bulk_par.m –function. Minimum range put to StreetWidth/2. d1 must be at least StreetWidth/2, d2 (indoor distance) can be zero. 
+- B1 NLoS: Minimum range put to StreetWidth, since MsBsDist is, at minimum, d1+d2, which both require at least StreetWidth/2 to be in NLoS.
+
+pathloss.m
+- A2/B4 combined according to D111
+- B1 changed so that MsBsDist = d1+d2
+- The default MsHeight and BsHeight are now assigned in this function according to table 4.4 in D111 except for A1 where a value 1.5 meters is given for all terminals for simplicity reasons. If the user do not define the heights, warning appears. 
+- SF_sigma is now given for each user, not only one value per scenario and LoS/NLoS condition. This is because in C1 and D1 LoS cases, SF_sigma is distance dependent. PEKKA: This needs update in LSCorrelation function as well. I leave that for you. Currently, only the value for user 1 is applied due to the error that occurs in LSCorrelation. To be changed at the end of pathloss.m after LSCorrelation is updated. 
+
+wim.m
+- ScenParTables changed so that it takes StreetWidth as input. Changes accordingly in line 67.
+
+linkparset.m
+- NumFloors assignment added (A2/B4).
+- Bs/MsHeight definition added
+
+wim_core.m
+-B5 LOS generation modified on rows 587-607
+  -unnecessary for loop removed
+  -term sqrt(bulkpar.path_powers(k,n)) removed from row 604 
+
+
+___________________________________________________________________
+Version 0.53 (29.03.2007, Lassi)
+Modified m-files:
+
+wim_core.m
+-rows 210 and 259 corrected
+
+generate_bulk_par.m
+-rows 734-737 (path_losses) modified
+
+
+___________________________________________________________________
+Version 0.52 (Lassi)
+Modified m-files:
+
+generate_bulk_par.m
+-rows 412 and 430 corrected: sigma_asD --> sigma_asA
+-row 308 corrected: 10.^(K_factors()) --> 10.^(K_factors_dB())
+
+wim.m
+-rows 189-192 added 
+
+
+
+___________________________________________________________________
+Version 0.51
+Modified m-files:
+
+ConstantCMapping.m
+-function removed, contets included to generate_bulk_par.m rows 398-423
+
+LSCorrelation.m
+-rows 44-47 corrected
+
+Pathloss.m
+-row 155 modified
+-row 175, try-catch removed
+-B1 Dist1 and Dist2 parameter handling revised
+
+wim.m
+-row 495, delay value output corrected 
+
+wim_core.m
+-row 161 corrected
+
+ScenParTables.m
+-row 533, cross correlation parameter asD_sf changed to 0.2 (0.4 in D1.1.1 table 4-5)
+
+generate_bulk_par.m
+-row 52 removed
+
+
+___________________________________________________________________
+Version 0.5 is the first "full" version based on deliverable D1.1.1
+
+Previous version (0.11) was mainly update of path loss models. All the rest, parameters and functionalities were from D5.4. That is why we called it just path loss update. New version 0.5 is the first true version of Phase II interim model. The main differences to previous version are:
+ 
+- new scenarios added (A2,B2,B4,B5f,C3,D2a)
+- propagation parameters are based on D1.1.1 table 4-5
+- path loss functions further elaborated (at least A1 and B1)
+- intra cluster delay spread option (default) added, two strongest clusters are spread to 3 delay positions
+- possibility to generate different scenarios to different links
+- possibility to generate different propagation condition (LOS/NLOS) to different links
+- LOS probability function included, possibility to random propagation condition
+- far cluster generation to bad urban scenarios (B2 and C3) added
+
+Implementations is still missing time evolution option. Also support of ANSI-C core to B5 scenarios and intra cluster delay spread option is missing. Anyhow B5 and intra cluster delay spread run properly with Matlab core (wim_core). Missing parts will be added as soon as possible.
+
+
+
+Please send all bug reports to authors:
+
+Pekka Kyösti		(firstname.lastname@elektrobit.com)
+Lassi Hentilä		(firstname.lastname@elektrobit.com)
+Mikko Alatossava	(firstname.lastname@ee.oulu.fi)
+Marko Milojevic		(firstname.lastname@tu-ilmenau.de)

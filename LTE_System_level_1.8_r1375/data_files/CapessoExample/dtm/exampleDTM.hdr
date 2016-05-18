@@ -1,0 +1,14 @@
+ulxmap -1190
+ulymap 1029.2
+xdim 5
+ydim 5
+ncols 473
+nrows 412
+nbits 16
+nbands 1
+byteorder I
+bandrowbytes 270
+totalrowbytes 270
+skipbytes 0
+datatype I16
+nodatavalue -9999

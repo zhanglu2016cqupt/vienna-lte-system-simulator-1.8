@@ -1,0 +1,1 @@
+Default folder where the UE cache files are stored.

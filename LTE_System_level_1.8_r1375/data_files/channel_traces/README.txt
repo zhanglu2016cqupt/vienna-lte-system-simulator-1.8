@@ -1,0 +1,1 @@
+Default folder where the channel traces are stored.

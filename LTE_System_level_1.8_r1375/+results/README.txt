@@ -1,0 +1,1 @@
+These files are only used in order to be able to read the traces from the LTE Link Level Simulator. THEY ARE NOT result files from the LTE System Level Simulator. The result objects are defined in the +traces/ folder.

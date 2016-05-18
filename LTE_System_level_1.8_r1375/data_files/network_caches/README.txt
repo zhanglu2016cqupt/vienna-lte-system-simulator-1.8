@@ -1,0 +1,1 @@
+Default folder where the network cache files are stored.

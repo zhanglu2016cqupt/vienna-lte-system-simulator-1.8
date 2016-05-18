@@ -1,0 +1,20 @@
+Name	X	Y	Altitude (m)	Pylon Height (m)	Support Type	SITENAME	PlanningRegion	RMRegion	SITEARCHITECTURE	Master	SPATIAL_REGION	MCC	MNC	
+BTS1	-750	-433.013	[0]			BTS1_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS2	-1000	0	[0]			BTS2_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS3	-750	433.013	[0]			BTS3_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS4	-500	-866.025	[0]			BTS4_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS5	-250	-433.013	[0]			BTS5_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS6	-500	0	[0]			BTS6_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS7	-250	433.013	[0]			BTS7_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS8	-500	866.025	[0]			BTS8_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS9	0	-866.025	[0]			BTS9_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS10	250	-433.013	[0]			BTS10_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS11	0	0	[0]			BTS11_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS12	250	433.013	[0]			BTS12_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS13	0	866.025	[0]			BTS13_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS14	500	-866.025	[0]			BTS14_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS15	750	-433.013	[0]			BTS15_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS16	500	0	[0]			BTS16_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS17	750	433.013	[0]			BTS17_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS18	500	866.025	[0]			BTS18_Vienna	V	Vienna	Rooftop	True	Vienna	001	1
+BTS19	1000	0	[0]			BTS19_Vienna	V	Vienna	Rooftop	True	Vienna	001	1

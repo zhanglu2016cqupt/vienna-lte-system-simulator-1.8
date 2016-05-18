@@ -1,0 +1,13 @@
+ulxmap -1200
+ulymap 1000
+xdim 5.000000
+ydim 5.000000
+ncols 480
+nrows 400
+nbits 32
+nbands 1
+byteorder I
+bandrowbytes 0
+totalrowbytes 0
+skipbytes 0
+datatype R32
